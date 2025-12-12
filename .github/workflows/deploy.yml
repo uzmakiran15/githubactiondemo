@@ -1,0 +1,24 @@
+name: Deploy HTML to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]     # Deploy when pushing to main
+  workflow_dispatch:          # Allow manual run
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Upload the static HTML
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .   # Upload the whole repo (includes index.html)
+
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
